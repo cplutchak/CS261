@@ -18,7 +18,7 @@ struct student
 struct student* allocate()
 {
      // Allocate memory for ten students*/
-     struct student *studArray = (struct student*)calloc(10, sizeof(struct student));
+     struct student *studArray = (struct student*)malloc(sizeof(struct student)*10);
      
      // Return the pointer*/
      return studArray;
