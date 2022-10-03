@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 char toUpperCase(char ch)
 {
@@ -36,6 +37,7 @@ int stringLength(char s[])
     return count;
 }
 
+
 int isValid(char c) {
     return (c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A');
 }
@@ -51,7 +53,7 @@ void camelCase(char* word) {
     int i = 0;
     int lastInsertedSpace = 0;
     int separatorInserted = 0;
-    while(word[i] != " ") {
+    while(word[i] !=' ') {
         if(isValid(word[i])) {
             filtered[fIndex++] = toLowerCase(word[i]);
             lastInsertedSpace = 0;
@@ -71,15 +73,15 @@ void camelCase(char* word) {
     if(!separatorInserted || fIndex == 0) {
         printf("Invalid String:%s*", word);
     } else {
-        filtered[fIndex] = " ";
+        filtered[fIndex] =' ';
         printf("Result:");
 
         // Now string is valid with atleast one underscore in between
 
         i = 0;
         int wordBreak = 0;
-        while(filtered[i] != " ") {
-            if(filtered[i] == "_") {
+        while(filtered[i] !=' ') {
+            if(filtered[i] == '_') {
                 wordBreak = 1;
             } else {
                 if(wordBreak) {
@@ -93,6 +95,7 @@ void camelCase(char* word) {
         }
         printf(" ");
     }
+
 }
 
 int main()
