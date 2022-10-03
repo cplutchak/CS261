@@ -31,7 +31,8 @@ void generate(struct student* students)
 
      /* Generate random and unique IDs and random scores for ten students, 
 		IDs being between 1 and 10, scores between 0 and 100 */
-     for(int i = 0; i<10; i++){
+     int i = 0;     
+     for(i; i<10; i++){
           students[i].id=rand()%11;
           students[i].score=rand()%101;
      }     
@@ -47,7 +48,8 @@ void output(struct student* students)
         ...
         ID10 score10*/
 
-      for(int i = 0; i<10; i++){
+      int i = 0;
+      for(i; i<10; i++){
           printf("ID%d %d\n",students[i].id,students[i].score);
       }  
 }
@@ -59,7 +61,8 @@ void summary(struct student* students)
 
      int min = students[0].score;
 
-     for(int i = 1; i<10; i++){
+     int i = 1;     
+     for(i; i<10; i++){
           if(students[i].score < min){
                min = students[i].score;
           }
@@ -67,18 +70,19 @@ void summary(struct student* students)
 
      int max = students[0].score;
 
-     for(int i = 1; i<10; i++){
+     for(i; i<10; i++){
           if(students[i].score > max){
                max = students[i].score;
           }
      } 
 
-     int sum, i;
-     for(i = 0; i<10; i++){
-          sum = sum + students[i].score;
+     int sum;
+     int j = 0;
+     for(j; j<10; j++){
+          sum = sum + students[j].score;
      }
 
-     float avg = (float)sum / i;
+     float avg = (float)sum / j;
 
      printf("Minimum Score:%d\n",min);
      printf("Maximum Score:%d\n",max);
