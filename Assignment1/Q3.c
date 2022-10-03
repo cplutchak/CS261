@@ -53,7 +53,7 @@ void camelCase(char* word) {
     int separatorInserted = 0;
     while(word[i] != " ") {
         if(isValid(word[i])) {
-            filtered[fIndex++] = lower(word[i]);
+            filtered[fIndex++] = toLowerCase(word[i]);
             lastInsertedSpace = 0;
         } else {
             if(!lastInsertedSpace && (fIndex != 0)) {
@@ -83,7 +83,7 @@ void camelCase(char* word) {
                 wordBreak = 1;
             } else {
                 if(wordBreak) {
-                    printf("%c", upper(filtered[i]));
+                    printf("%c", toUpperCase(filtered[i]));
                     wordBreak = 0;
                 } else {
                     printf("%c", filtered[i]);
