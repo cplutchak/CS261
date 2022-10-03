@@ -51,7 +51,7 @@ void camelCase(char* word) {
     int i = 0;
     int lastInsertedSpace = 0;
     int separatorInserted = 0;
-    while(word[i] != '') {
+    while(word[i] != " ") {
         if(isValid(word[i])) {
             filtered[fIndex++] = lower(word[i]);
             lastInsertedSpace = 0;
