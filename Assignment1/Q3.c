@@ -36,78 +36,63 @@ int stringLength(char s[])
     return count;
 }
 
+int isValid(char c) {
+    return (c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A');
+}
+int isSeparator(char c) {
+    return (c == '_' || c == ' ');
+}
 
-void camelCase(char* word) 
-{
-    /*Convert to camelCase*/
-    int sLength = stringLength(word);
-    int i,j,first=0,change=0;
+void camelCase(char* word) {
 
-    //remove staring char '_',*,numbers,$ from starting
-    for (i = 0; i < sLength; i++){
-        if (word[0] == '_' || (word[0] >= 33 && word[0] <=64)){
-            for (j = 0; j < sLength; j++){
-                word[j] = word[j + 1];
+    char filtered[100];
+    int fIndex = 0;
+
+    int i = 0;
+    int lastInsertedSpace = 0;
+    int separatorInserted = 0;
+    while(word[i] != '') {
+        if(isValid(word[i])) {
+            filtered[fIndex++] = lower(word[i]);
+            lastInsertedSpace = 0;
+        } else {
+            if(!lastInsertedSpace && (fIndex != 0)) {
+                filtered[fIndex++] = '_';
+                lastInsertedSpace = 1;
+                separatorInserted = 1;
             }
-        --sLength;
         }
+        i++;
+    }
+    if(lastInsertedSpace) {
+        fIndex--;
     }
 
-    //remove any special chars if any in the string
-    for (i = 0; i < sLength; i++){
-        if (word[i] == '_' || (word[i] >= 33 && word[i] <= 64)){
-            if (first == 0){
-                word[i] = '_';
-                first = 1;
-            }
+    if(!separatorInserted || fIndex == 0) {
+        printf("Invalid String:%s*", word);
+    } else {
+        filtered[fIndex] = " ";
+        printf("Result:");
 
-            for (j = i+first; j < sLength; j++){
-                word[j] = word[j + 1];
+        // Now string is valid with atleast one underscore in between
 
+        i = 0;
+        int wordBreak = 0;
+        while(filtered[i] != " ") {
+            if(filtered[i] == "_") {
+                wordBreak = 1;
+            } else {
+                if(wordBreak) {
+                    printf("%c", upper(filtered[i]));
+                    wordBreak = 0;
+                } else {
+                    printf("%c", filtered[i]);
+                }
             }
-        --sLength;
+            i++;
         }
+        printf(" ");
     }
-
-    //remove trailing _ from word
-    i = sLength-1;
-
-    while (word[i] == '_'){
-        i = --sLength;
-    }
-
-    word[i+1] = '\0';
-    sLength = i + 1;
-
-    //check if all the words upper before _
-    for (i = 0; i < sLength; i++){
-        if (word[i] == '_'){
-            break;
-        }
-    if(isupper(word[i]))
-    word[i] = toLowerCase(word[i]);
-    }
-
-    for(i = 0; i < sLength; i++){
-        if (word[i] == '_'){
-            if (islower(word[i + 1])){
-                word[i] = toUpperCase(word[i + 1]);
-                change = 1;
-            }
-            else{
-                word[i + 1] = toLowerCase(word[i + 1]);
-                change = 0;
-            }
-
-    //move all the elements after ith loc to left
-        if(change == 1)
-            for (j = i+1; j < sLength; j++){
-                word[j] = word[j + 1];
-            }
-            --sLength;
-        }
-    }
-
 }
 
 int main()
