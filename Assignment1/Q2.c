@@ -1,6 +1,6 @@
 /* CS261- Assignment 1A - Question 2
-   Name: Ameyassh Nagarajan
-   Date: 09/30/2022
+   Name: Cheyenne Plutchak & Ameyassh Nagarajan
+   Date: 09/25/2022
    Solution description:
 */
  
