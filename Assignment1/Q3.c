@@ -26,13 +26,6 @@ char toLowerCase(char ch)
     return ch;                          
 }
 
-char toUnderScore(char ch)
-{
-    // Convert ch to lower case, assuming it is in upper case currently
-    
-    return ch == '_';                          
-}
-
 int stringLength(char s[])
 {
     // Return the length of the string
@@ -45,27 +38,32 @@ int stringLength(char s[])
 }
 
 void camelCase( char* word){
-    int s = 0, d = 0;
+    int i = 0, j = 0;
 
-    while( ( word[d] = word[s] ) != '\0' ) {
-        if( isalpha( word[d] ) ) {
-            word[ d ] = toLowerCase( word[ d ] );
-            d++, s++;
+    while((word[j] = word[i]) != '\0'){
+        if((word[j] >= 'a' && word[j] <= 'z') || (word[j] >= 'A' && word[j] <= 'Z')) {
+            word[j] = toLowerCase(word[j]);
+            j++, i++;
             continue;
         }
-        while( word[s] && !isalpha( word[s] ) ) s++;
-        if( word[s] )
-            word[d++] = toUpperCase( word[s++] );
+        while(!((word[i] >= 'a' && word[i] <= 'z') || (word[i] >= 'A' && word[i] <= 'Z'))) i++;
+
+        if(word[i])
+            word[j++] = toUpperCase(word[i++]);
     }
-    word[ 0 ] = tolower( word[ 0 ] );
+
+    word[0] = toLowerCase(word[0]);
 }
 
 int isValid(char *word){
     int i;
     for(i = 0; word[i] != '\0'; ++i)
     {
-        if(!((word[i] >= 'a' && word[i] <= 'z') || (word[i] >= 'A' && word[i] <= 'Z')) )
-        {
+        if(!((word[i] >= 'a' && word[i] <= 'z') || (word[i] >= 'A' && word[i] <= 'Z') || word[0] <= '@')){
+            return 0;
+        }
+        else if(((word[0] >= '1' && word[0] <= '9'))){
+
             return 0;
         }
         else return 1;
@@ -81,9 +79,10 @@ int main()
 	printf("Enter word: ");
     scanf("%s", wordArray);
 
-    /*if(isValid(wordArray) == 0){
+    if(isValid(wordArray) == 0){
         printf("Invalid input string\n");
-    }*/
+        return -1;
+    }
 	
 	// Call camelCase
 	camelCase(wordArray);
