@@ -37,20 +37,60 @@ int stringLength(char s[])
     return count;
 }
 
-void camelCase( char* word){
-    int i = 0, j = 0;
+char toUnderScore(char ch)
+{
+    // Convert ch to lower case, assuming it is in upper case currently
+    return ch = '_';                          
+}
 
-    while((word[j] = word[i]) != '\0'){
-        if((word[j] >= 'a' && word[j] <= 'z') || (word[j] >= 'A' && word[j] <= 'Z')) {
-            word[j] = toLowerCase(word[j]);
-            j++, i++;
-            continue;
+void camelCase(char* word) 
+{
+    //Convert to camelCase
+    int sLength = stringLength(word);
+    int i,j;
+
+    //replace empty space with underscore
+    for (i = 0; i < sLength; i++){
+        if(word[i] == ' '){
+            word[i] = toUnderScore(word[i]);
+
+            for (j = i+1; j < sLength; j++){
+                word[j] = word[j + 1];
+            }
+            --sLength;
         }
-        while(!((word[i] >= 'a' && word[i] <= 'z') || (word[i] >= 'A' && word[i] <= 'Z'))) i++;
-        if(word[i])
-            word[j++] = toUpperCase(word[i++]);
+    }        
+
+    printf("%s\n", word);
+
+    //convert char after underscore to uppercase else set to lower case
+    for (i = 0; i < sLength; i++){
+            if (word[i] == '_' || word[i] == '4'){
+            word[i] = toUpperCase(word[i + 1]);
+
+            for (j = i+1; j < sLength; j++){
+                word[j] = word[j + 1];
+            }
+            --sLength; 
+        }
+        else
+            word[i] = toLowerCase(word[i]);
     }
+
     word[0] = toLowerCase(word[0]);
+
+    //remove the remaing special characters
+    for(i = 0; word[i] != '\0'; ++i)
+    {
+        while (!((word[i] >= 'a' && word[i] <= 'z') || (word[i] >= 'A' && word[i] <= 'Z') || word[i] == '\0') )
+        {
+            for(j = i; word[j] != '\0'; ++j)
+            {
+                word[j] = word[j+1];
+            }
+            word[j] = '\0'; 
+        }
+    }
 }
 
 int isValid(char *word){
