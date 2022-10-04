@@ -47,11 +47,9 @@ void camelCase( char* word){
             continue;
         }
         while(!((word[i] >= 'a' && word[i] <= 'z') || (word[i] >= 'A' && word[i] <= 'Z'))) i++;
-
         if(word[i])
             word[j++] = toUpperCase(word[i++]);
     }
-
     word[0] = toLowerCase(word[0]);
 }
 
@@ -59,11 +57,10 @@ int isValid(char *word){
     int i;
     for(i = 0; word[i] != '\0'; ++i)
     {
-        if(!((word[i] >= 'a' && word[i] <= 'z') || (word[i] >= 'A' && word[i] <= 'Z') || word[0] <= '@')){
+        if(((word[i] >= 'a' && word[i] <= 'z'))){
             return 0;
         }
-        else if(((word[0] >= '1' && word[0] <= '9'))){
-
+        if(((word[i] >= '1' && word[i] <= '9'))){
             return 0;
         }
         else return 1;
